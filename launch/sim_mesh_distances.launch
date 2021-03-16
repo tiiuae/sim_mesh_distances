@@ -1,0 +1,14 @@
+<!--
+example usage:
+    ros2 launch sim_mesh_distances sim_mesh_distances.launch addr:=172.17.0.3
+
+-->
+
+<launch>
+  <arg name="addr" default="127.0.0.1"/>
+
+  <node name="sim_mesh_distances" pkg="sim_mesh_distances" exec="sim_mesh_distances" namespace='$(env DRONE_DEVICE_ID)'>
+    <param name="port" value="15517"/>
+    <param name="address" value="$(var addr)"/>
+  </node>
+</launch>
