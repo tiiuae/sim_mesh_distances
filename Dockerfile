@@ -3,6 +3,8 @@
 FROM ros:foxy as sim_mesh_distances-builder
 
 ARG BUILD_NUMBER
+ARG DISTRIBUTION
+ARG ARCHITECTURE
 
 # Install build dependencies
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
@@ -21,7 +23,7 @@ WORKDIR /build
 COPY . sim_mesh_distances/
 
 RUN cd sim_mesh_distances/packaging/ \
-    && ./package.sh ${BUILD_NUMBER}
+    && ./package.sh ${BUILD_NUMBER} ${DISTRIBUTION} ${ARCHITECTURE}
 
 FROM scratch
 COPY --from=sim_mesh_distances-builder /build/*.deb /packages/
